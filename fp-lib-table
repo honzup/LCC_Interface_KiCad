@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "LCC_Interface")(type "KiCad")(uri "${KIPRJMOD}/LCC_Interface.pretty")(options "")(descr "Local LCC footprints"))
+)

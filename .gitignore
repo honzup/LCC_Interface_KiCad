@@ -1,0 +1,12 @@
+# KiCad backups, autosaves, locks, caches
+*.bak
+*-bak
+*-backups/
+_autosave-*
+*.lck
+~*.lck
+fp-info-cache
+# KiCad per-user local settings
+*.kicad_prl
+# Editor local history
+.history/

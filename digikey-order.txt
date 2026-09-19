@@ -1,0 +1,41 @@
+Universal LCC / CAN Interface (Rev B) - Digi-Key order
+=======================================================
+Qty below = enough for ONE board, with spares on the cheap SMD passives.
+Paste the block below into Digi-Key's "Quick Order" / "Add Multiple Parts to Cart",
+then Save as a List (myLists) so it can't vanish if the cart drops.
+
+Ships DDP to Sweden (VAT at checkout, no customs handling fee); free over 430 SEK.
+
+--- PASTE THIS (part number, quantity) ---
+296-43711-1-ND, 1
+568-4032-1-ND, 1
+RJHSE-5380-ND, 2
+1276-1003-1-ND, 10
+1276-2873-1-ND, 5
+311-120CRCT-ND, 10
+S1011EC-40-ND, 1
+311-10.0KCRCT-ND, 2
+------------------------------------------
+
+Line-by-line:
+  296-43711-1-ND    x1   U1   TCAN332DR, 3.3V CAN transceiver, SOIC-8 (Cut Tape)
+  568-4032-1-ND     x1   D1   Nexperia PESD1CAN, CAN-bus TVS, SOT-23 (Cut Tape)
+  RJHSE-5380-ND     x2   J1,J2  Amphenol RJHSE-5380 shielded RJ45 (through-hole, Bulk)
+  1276-1003-1-ND    x10  C1   100nF 50V X7R 0805 (10 = spares; only need 1)
+  1276-2873-1-ND    x5   C2   4.7uF 16V X7R 0805, Samsung CL21B475KOFNNNE (Cut Tape)
+  311-120CRCT-ND    x10  R1   120R 1% 0805 termination (10 = spares; only need 1)
+  S1011EC-40-ND     x1   JP1+J3  1x40 2.54mm header strip - snap to length (covers both)
+  311-10.0KCRCT-ND  x2   R2,R3  10k 0805 - DNP, ONLY fit if swapping to TCAN330/334/337
+
+Optional / not ordered:
+  TP1-TP3  test points - bare pads work; only buy Keystone 5015 (36-5015-ND) if you
+           want solder-loop test points.
+
+Packaging reminder (Digi-Key suffix):
+  -1-ND = Cut Tape  (what you want for small qty)
+  -2-ND = Tape & Reel (full reel - avoid)
+  -6-ND = Digi-Reel  (custom qty on mini-reel, +fee)
+  Through-hole parts (RJ45, header) have no Cut Tape - "Bulk"/"Tube" is correct.
+
+Caps are generic: any 100nF and any 4.7uF (16V+) X7R 0805 will do - brand/exact
+part number does not matter, only value / size (0805) / dielectric (X7R) / voltage.
