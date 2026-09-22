@@ -34,10 +34,10 @@ COMPS = [
  ("TP2","TestPoint","TestPoint_THTPad_D1.5mm_Drill0.7mm", 52, 25, 0, None),
  ("TP3","TestPoint","TestPoint_THTPad_D1.5mm_Drill0.7mm", 55, 25, 0, None),
  # --- Rev C diagnostic indicators (all passive) ---
- # Power LED D2 + R4 (1k), placed next to U1 so +3V3 tap is at the VCC pad
- ("R4","Resistor_SMD","R_0805_2012Metric_Pad1.20x1.40mm_HandSolder", 18, 34.5, 0, "a3a3a3a3-0000-0000-0000-000000000009"),
- ("D2","LED_SMD","LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder", 22.5, 34.5, 0, "a3a3a3a3-0000-0000-0000-000000000006"),
- # TX-activity LED D3 + R5 (1k)  |  RX-activity LED D4 + R6 (1k)  -- one clear row
+ # PWR LED D2 + R4 (1k): left end of the diagnostic row, +3V3 tap up to C2
+ ("R4","Resistor_SMD","R_0805_2012Metric_Pad1.20x1.40mm_HandSolder", 15, 41, 0, "a3a3a3a3-0000-0000-0000-000000000009"),
+ ("D2","LED_SMD","LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder", 19.5, 41, 0, "a3a3a3a3-0000-0000-0000-000000000006"),
+ # One row @ y=41, 4.5mm pitch: R4 D2 | R5 D3(TX) | R6 D4(RX)  -- R -> LED
  ("R5","Resistor_SMD","R_0805_2012Metric_Pad1.20x1.40mm_HandSolder", 24, 41, 0, "a3a3a3a3-0000-0000-0000-00000000000a"),
  ("D3","LED_SMD","LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder", 28.5, 41, 0, "a3a3a3a3-0000-0000-0000-000000000007"),
  ("R6","Resistor_SMD","R_0805_2012Metric_Pad1.20x1.40mm_HandSolder", 33, 41, 0, "a3a3a3a3-0000-0000-0000-00000000000b"),
@@ -90,7 +90,7 @@ silk("3V3", 4.0, 35.54, 0, 0.9)
 silk("TX",  4.3, 38.08, 0, 0.9)
 silk("RX",  4.3, 40.62, 0, 0.9)
 # Rev C diagnostic-part silk (kept clear of pads/other silk)
-silk("PWR", 26,   34.5, 0, 0.8)
+silk("PWR", 19.5, 43,   0, 0.8)
 silk("TX",  28.5, 43,   0, 0.8)
 silk("RX",  37.5, 43,   0, 0.8)
 # Rev C probe-pad net names (horizontal, right of TP4-6 column at x=53)
