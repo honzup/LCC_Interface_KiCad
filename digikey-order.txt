@@ -1,4 +1,4 @@
-Universal LCC / CAN Interface (Rev B) - Digi-Key order
+Universal LCC / CAN Interface (Rev C) - Digi-Key order
 =======================================================
 Qty below = enough for ONE board, with spares on the cheap SMD passives.
 Paste the block below into Digi-Key's "Quick Order" / "Add Multiple Parts to Cart",
@@ -15,6 +15,8 @@ RJHSE-5380-ND, 2
 311-120CRCT-ND, 10
 S1011EC-40-ND, 1
 311-10.0KCRCT-ND, 2
+160-1414-1-ND, 5
+311-1.0KCRCT-ND, 10
 ------------------------------------------
 
 Line-by-line:
@@ -26,6 +28,10 @@ Line-by-line:
   311-120CRCT-ND    x10  R1   120R 1% 0805 termination (10 = spares; only need 1)
   S1011EC-40-ND     x1   JP1+J3  1x40 2.54mm header strip - snap to length (covers both)
   311-10.0KCRCT-ND  x2   R2,R3  10k 0805 - DNP, ONLY fit if swapping to TCAN330/334/337
+  160-1414-1-ND     x5   D2,D3,D4  LED 0805 (5 = spares; need 3) - power / TX / RX indicators
+                                    GENERIC: any 0805 LED works, colour to taste
+  311-1.0KCRCT-ND   x10  R4,R5,R6  1k 0805 LED series resistors (10 = spares; need 3)
+                                    1k is deliberate - keeps LED current ~1-2 mA
 
 Optional / not ordered:
   TP1-TP3  test points - bare pads work; only buy Keystone 5015 (36-5015-ND) if you

@@ -3,15 +3,16 @@ import pcbnew
 from pcbnew import VECTOR2I, FromMM
 
 FPDIR = "/home/john/AppImages/kicad-10.0.4-extracted/usr/share/kicad/footprints"
-OUT   = "/home/john/LCC_Interface_KiCad_RevA/LCC_Interface.kicad_pcb"
-DSN   = "/home/john/LCC_Interface_KiCad_RevA/LCC_Interface.dsn"
+OUT   = "/home/john/LCC_Interface_KiCad_RevC/LCC_Interface.kicad_pcb"
+DSN   = "/home/john/LCC_Interface_KiCad_RevC/LCC_Interface.dsn"
 BW, BH = 60, 50   # board size mm
 
 board = pcbnew.NewBoard(OUT)
 def V(x, y): return VECTOR2I(FromMM(x), FromMM(y))
 
 NETS = ["CAN_H","CAN_L","CAN_TX","CAN_RX","+3V3","MODE5","MODE8",
-        "TERM_MID","ALT_L","ALT_H","PWR_NEG","PWR_POS","CAN_GND"]
+        "TERM_MID","ALT_L","ALT_H","PWR_NEG","PWR_POS","CAN_GND",
+        "LED_PWR","LED_TX","LED_RX"]   # Rev C: LED anode taps (R -> LED anode)
 net = {}
 for n in NETS:
     ni = pcbnew.NETINFO_ITEM(board, "/"+n); board.Add(ni); net[n] = ni
@@ -32,6 +33,19 @@ COMPS = [
  ("TP1","TestPoint","TestPoint_THTPad_D1.5mm_Drill0.7mm", 49, 25, 0, None),
  ("TP2","TestPoint","TestPoint_THTPad_D1.5mm_Drill0.7mm", 52, 25, 0, None),
  ("TP3","TestPoint","TestPoint_THTPad_D1.5mm_Drill0.7mm", 55, 25, 0, None),
+ # --- Rev C diagnostic indicators (all passive) ---
+ # Power LED D2 + R4 (1k), placed next to U1 so +3V3 tap is at the VCC pad
+ ("R4","Resistor_SMD","R_0805_2012Metric_Pad1.20x1.40mm_HandSolder", 18, 34.5, 0, "a3a3a3a3-0000-0000-0000-000000000009"),
+ ("D2","LED_SMD","LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder", 22.5, 34.5, 0, "a3a3a3a3-0000-0000-0000-000000000006"),
+ # TX-activity LED D3 + R5 (1k)  |  RX-activity LED D4 + R6 (1k)  -- one clear row
+ ("R5","Resistor_SMD","R_0805_2012Metric_Pad1.20x1.40mm_HandSolder", 24, 41, 0, "a3a3a3a3-0000-0000-0000-00000000000a"),
+ ("D3","LED_SMD","LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder", 28.5, 41, 0, "a3a3a3a3-0000-0000-0000-000000000007"),
+ ("R6","Resistor_SMD","R_0805_2012Metric_Pad1.20x1.40mm_HandSolder", 33, 41, 0, "a3a3a3a3-0000-0000-0000-00000000000b"),
+ ("D4","LED_SMD","LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder", 37.5, 41, 0, "a3a3a3a3-0000-0000-0000-000000000008"),
+ # Board-only probe pads (like TP1-3): +3V3, CAN_TX, CAN_RX -- right of J2, clear column
+ ("TP4","TestPoint","TestPoint_THTPad_D1.5mm_Drill0.7mm", 53, 12, 0, None),
+ ("TP5","TestPoint","TestPoint_THTPad_D1.5mm_Drill0.7mm", 53, 16, 0, None),
+ ("TP6","TestPoint","TestPoint_THTPad_D1.5mm_Drill0.7mm", 53, 20, 0, None),
  ("H1","MountingHole","MountingHole_3.2mm_M3", 4,  4,  0, None),
  ("H2","MountingHole","MountingHole_3.2mm_M3", 56, 4,  0, None),
  ("H3","MountingHole","MountingHole_3.2mm_M3", 4,  46, 0, None),
@@ -40,6 +54,8 @@ COMPS = [
 VALUE = {"U1":"TCAN332DR","J1":"LCC RJ45","J2":"LCC RJ45","J3":"MCU INTERFACE",
  "C1":"100nF","C2":"4.7uF","R1":"120R","R2":"10k DNP","R3":"10k DNP",
  "D1":"PESD1CAN","JP1":"TERM ENABLE","TP1":"TP","TP2":"TP","TP3":"TP",
+ "D2":"LED","D3":"LED","D4":"LED","R4":"1k","R5":"1k","R6":"1k",
+ "TP4":"TP","TP5":"TP","TP6":"TP",
  "H1":"","H2":"","H3":"","H4":""}
 fps = {}
 for ref, lib, fp, x, y, rot, uuid in COMPS:
@@ -73,8 +89,16 @@ silk("GND", 4.0, 33.0,  0, 0.9)
 silk("3V3", 4.0, 35.54, 0, 0.9)
 silk("TX",  4.3, 38.08, 0, 0.9)
 silk("RX",  4.3, 40.62, 0, 0.9)
+# Rev C diagnostic-part silk (kept clear of pads/other silk)
+silk("PWR", 26,   34.5, 0, 0.8)
+silk("TX",  28.5, 43,   0, 0.8)
+silk("RX",  37.5, 43,   0, 0.8)
+# Rev C probe-pad net names (horizontal, right of TP4-6 column at x=53)
+silk("+3V3",   57, 12, 0, 0.8)
+silk("CAN_TX", 57, 16, 0, 0.8)
+silk("CAN_RX", 57, 20, 0, 0.8)
 # board name (bottom centre)
-silk("LCC / CAN INTERFACE   Rev B", 30, 46, 0, 1.3)
+silk("LCC / CAN INTERFACE   Rev C", 30, 46, 0, 1.3)
 # J3: put "MCU INTERFACE" (value) above the header on silk, move J3 refdes below
 _j3 = fps["J3"]
 _v = _j3.Value()
@@ -91,6 +115,11 @@ PADNET = {
  "R1": {"1":"CAN_H","2":"TERM_MID"}, "R2": {"1":"MODE5","2":"CAN_GND"}, "R3": {"1":"MODE8","2":"CAN_GND"},
  "D1": {"1":"CAN_H","2":"CAN_L","3":"CAN_GND"}, "JP1":{"1":"TERM_MID","2":"CAN_L"},
  "TP1":{"1":"CAN_H"},"TP2":{"1":"CAN_L"},"TP3":{"1":"CAN_GND"},
+ # Rev C: LED pad1 = cathode (K), pad2 = anode (A); R pad1 = +3V3, pad2 = LED anode
+ "R4":{"1":"+3V3","2":"LED_PWR"}, "D2":{"1":"CAN_GND","2":"LED_PWR"},
+ "R5":{"1":"+3V3","2":"LED_TX"},  "D3":{"1":"CAN_TX","2":"LED_TX"},
+ "R6":{"1":"+3V3","2":"LED_RX"},  "D4":{"1":"CAN_RX","2":"LED_RX"},
+ "TP4":{"1":"+3V3"},"TP5":{"1":"CAN_TX"},"TP6":{"1":"CAN_RX"},
 }
 for ref, f in fps.items():
     m = PADNET.get(ref, {})

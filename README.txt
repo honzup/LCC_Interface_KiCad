@@ -1,4 +1,4 @@
-Universal LCC / CAN Interface  -  Rev B
+Universal LCC / CAN Interface  -  Rev C
 =======================================
 
 Open LCC_Interface.kicad_pro in KiCad 9 or 10.
@@ -7,6 +7,25 @@ The project contains a native .kicad_sch and .kicad_pcb.
 The schematic is the authoritative source and passes ERC with 0 errors
 (remaining warnings are cosmetic: off-grid endpoints, and the embedded "LCC"
 symbol library not being registered in a sym-lib-table - both harmless).
+
+
+WHAT CHANGED FROM REV B
+-----------------------
+Rev C adds passive diagnostic indicators only (no new ICs, no net-logic change):
+
+1. POWER LED. D2 (0805 LED) + R4 (1k): +3V3 -> R4 -> D2 anode -> D2 cathode ->
+   CAN_GND. Lit whenever the board's 3V3 rail is present. Placed next to U1 so
+   the +3V3 tap sits at the transceiver VCC pad.
+2. TX ACTIVITY LED. D3 + R5 (1k): +3V3 -> R5 -> D3 anode; D3 cathode -> CAN_TX.
+   TXD idles high (recessive) so the LED is dark at idle and blinks on transmit.
+3. RX ACTIVITY LED. D4 + R6 (1k): +3V3 -> R6 -> D4 anode; D4 cathode -> CAN_RX.
+4. PROBE PADS. TP4/TP5/TP6 added (board-only, same THT pad style as TP1-3) on
+   +3V3 / CAN_TX / CAN_RX respectively.
+
+The 1k series resistors are deliberate - they hold LED current to ~1-2 mA so the
+indicators load the 3V3 rail and the TX/RX lines only lightly. Board is still the
+same 60 x 50 mm two-layer outline with the solid CAN_GND bottom pour; DRC clean
+(0 violations, 0 unconnected, fully routed).
 
 
 WHAT CHANGED FROM REV A (ChatGPT draft)
@@ -60,7 +79,7 @@ LCC RJ45 pin assignment (OpenLCB S-9.6.1):
 PCB - COMPLETE
 --------------
 The Rev A board was regenerated from scratch to match the corrected schematic:
-all 18 footprints placed, nets assigned, and every signal autorouted
+all 27 footprints placed (Rev C added D2-D4, R4-R6, TP4-6), nets assigned, and every signal autorouted
 (Freerouting) on a 60 x 50 mm two-layer board (well under the 100 x 100 mm
 budget-fab price break). The bottom layer is a solid CAN_GND ground pour; every
 ground and shield pad connects to it. Four M3 mounting holes, 4 mm in from each
@@ -72,7 +91,7 @@ Verified with KiCad's design-rule check:
    Net names match the schematic.
 
 Remaining DRC "schematic parity" notes are cosmetic only: empty Datasheet
-metadata fields, and TP1-3 / H1-H2 being board-only (test points + mounting
+metadata fields, and TP1-6 / H1-H2 being board-only (test points + mounting
 holes are intentionally not in the schematic).
 
 BEFORE ORDERING, check these mechanical points in the GUI:

@@ -1,7 +1,7 @@
 import pcbnew
 from pcbnew import FromMM
-B="/home/john/LCC_Interface_KiCad_RevA/LCC_Interface.kicad_pcb"
-S="/home/john/LCC_Interface_KiCad_RevA/LCC_Interface.ses"
+B="/home/john/LCC_Interface_KiCad_RevC/LCC_Interface.kicad_pcb"
+S="/home/john/LCC_Interface_KiCad_RevC/LCC_Interface.ses"
 board=pcbnew.LoadBoard(B)
 print("import ok:", pcbnew.ImportSpecctraSES(board, S))
 

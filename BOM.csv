@@ -10,4 +10,10 @@ JP1,1,2-pin header 2.54mm,PinHeader_1x02,PRPC040SAAN-RC (Sullins),S1011EC-40-ND,
 J1,1,RJ45 shielded,Connector_RJ:RJ45_Amphenol_RJHSE5380,RJHSE-5380 (Amphenol ICC),RJHSE-5380-ND,"LCC bus - NOT Ethernet; NOT -5385 (LED variant); shell to CAN_GND"
 J2,1,RJ45 shielded,Connector_RJ:RJ45_Amphenol_RJHSE5380,RJHSE-5380 (Amphenol ICC),RJHSE-5380-ND,LCC bus daisy-chain pass-through
 J3,1,1x4 header 2.54mm,PinHeader_1x04,PRPC040SAAN-RC (Sullins),S1011EC-40-ND,MCU: 1=GND 2=3V3 3=TX 4=RX (snap from strip)
-TP1 TP2 TP3,3,Test point (optional),TestPoint_THT,5015 (Keystone),36-5015-ND,Optional loops - bare pads work; CAN_H / CAN_L / CAN_GND
+D2,1,LED 0805,LED_SMD:LED_0805_2012Metric,LTST-C170KGKT (Lite-On) or equiv,160-1414-1-ND,"Rev C power indicator: +3V3 -> R4 -> D2 -> CAN_GND; GENERIC - any 0805 LED, colour to taste"
+D3,1,LED 0805,LED_SMD:LED_0805_2012Metric,LTST-C170KGKT (Lite-On) or equiv,160-1414-1-ND,"Rev C TX activity: +3V3 -> R5 -> D3 anode, cathode -> CAN_TX (blinks on transmit); ~1-2 mA"
+D4,1,LED 0805,LED_SMD:LED_0805_2012Metric,LTST-C170KGKT (Lite-On) or equiv,160-1414-1-ND,"Rev C RX activity: +3V3 -> R6 -> D4 anode, cathode -> CAN_RX; ~1-2 mA"
+R4,1,1k,R_0805,RC0805FR-071KL (Yageo),311-1.0KCRCT-ND,"Rev C - D2 power-LED series resistor (1k = deliberately low current ~1-2 mA @ 3.3V)"
+R5,1,1k,R_0805,RC0805FR-071KL (Yageo),311-1.0KCRCT-ND,"Rev C - D3 TX-LED series resistor (1k)"
+R6,1,1k,R_0805,RC0805FR-071KL (Yageo),311-1.0KCRCT-ND,"Rev C - D4 RX-LED series resistor (1k)"
+TP1 TP2 TP3 TP4 TP5 TP6,6,Test point (optional),TestPoint_THT,5015 (Keystone),36-5015-ND,"Optional loops - bare pads work; CAN_H / CAN_L / CAN_GND / +3V3 / CAN_TX / CAN_RX (Rev C added TP4-6)"
