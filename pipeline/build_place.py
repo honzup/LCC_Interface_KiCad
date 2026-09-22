@@ -2,7 +2,7 @@
 import pcbnew
 from pcbnew import VECTOR2I, FromMM
 
-FPDIR = "/home/john/AppImages/kicad-10.0.4-extracted/usr/share/kicad/footprints"
+FPDIR = "/usr/share/kicad/footprints"   # system KiCad 10.0.6 (apt)
 OUT   = "/home/john/LCC_Interface_KiCad_RevC/LCC_Interface.kicad_pcb"
 DSN   = "/home/john/LCC_Interface_KiCad_RevC/LCC_Interface.dsn"
 BW, BH = 60, 50   # board size mm
@@ -19,8 +19,8 @@ for n in NETS:
 
 # ref: (lib, fp, x, y, rot, schematic-symbol-uuid or None)
 COMPS = [
- ("J1","Connector_RJ","RJ45_Amphenol_RJHSE5380", 16, 13, 0,  "0e642468-49c7-4cf3-98d9-0331951453b6"),
- ("J2","Connector_RJ","RJ45_Amphenol_RJHSE5380", 37, 13, 0,  "d87adfcd-62eb-4d56-b351-95ea2de0780c"),
+ ("J1","Connector_RJ","RJ45_Amphenol_RJHSE5380-08", 16, 13, 0,  "0e642468-49c7-4cf3-98d9-0331951453b6"),
+ ("J2","Connector_RJ","RJ45_Amphenol_RJHSE5380-08", 37, 13, 0,  "d87adfcd-62eb-4d56-b351-95ea2de0780c"),
  ("D1","Package_TO_SOT_SMD","SOT-23",             30, 24, 0,  "a3a3a3a3-0000-0000-0000-000000000005"),
  ("U1","Package_SO","SOIC-8_3.9x4.9mm_P1.27mm",   21, 29, 0,  "18eb6a53-2da7-48ca-ab9a-8724a9be2451"),
  ("R2","Resistor_SMD","R_0805_2012Metric_Pad1.20x1.40mm_HandSolder", 35, 27, 0, "a3a3a3a3-0000-0000-0000-000000000003"),
@@ -72,6 +72,18 @@ for r in ("R2","R3"):
     except Exception: pass
 for r in ("H1","H2","H3","H4"): fps[r].Reference().SetVisible(False)
 fps["C2"].Reference().SetPosition(V(15,32.5))
+
+# Rev C: the RJ45 footprint ships a stale 3D-model filename (RJHSE5380.step is not
+# installed); repoint J1/J2 at the shipped family model so the sockets render.
+# Purely cosmetic -- fab output and DRC are unaffected by the 3D model.
+_RJ45_MODEL = "${KICAD10_3DMODEL_DIR}/Connector_RJ.3dshapes/RJ45_Amphenol_RJHSE538X.step"
+for _ref in ("J1", "J2"):
+    _mdl = pcbnew.FP_3DMODEL()
+    _mdl.m_Filename = _RJ45_MODEL
+    _mdl.m_Show = True
+    _models = fps[_ref].Models()
+    _models.clear()
+    _models.push_back(_mdl)
 
 def silk(txt, x, y, angle=0, size=0.8):
     t = pcbnew.PCB_TEXT(board); t.SetText(txt); t.SetLayer(pcbnew.F_SilkS)
