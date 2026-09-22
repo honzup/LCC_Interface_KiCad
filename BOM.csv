@@ -7,8 +7,8 @@ R2,1,10k,R_0805,RC0805FR-0710KL (Yageo),311-10.0KCRCT-ND,DNP - fit only for TCAN
 R3,1,10k,R_0805,RC0805FR-0710KL (Yageo),311-10.0KCRCT-ND,DNP - fit only for TCAN330/334/337 (pin 8 low)
 D1,1,PESD1CAN,Package_TO_SOT_SMD:SOT-23,"PESD1CAN,215 (Nexperia)",568-4032-1-ND,"CAN-bus ESD/TVS (Cut Tape); NOT PESD1CANVL / -UX"
 JP1,1,2-pin header 2.54mm,PinHeader_1x02,PRPC040SAAN-RC (Sullins),S1011EC-40-ND,Termination enable jumper (snap from strip)
-J1,1,RJ45 shielded,Connector_RJ:RJ45_Amphenol_RJHSE5380,RJHSE-5380 (Amphenol ICC),RJHSE-5380-ND,"LCC bus - NOT Ethernet; NOT -5385 (LED variant); shell to CAN_GND"
-J2,1,RJ45 shielded,Connector_RJ:RJ45_Amphenol_RJHSE5380,RJHSE-5380 (Amphenol ICC),RJHSE-5380-ND,LCC bus daisy-chain pass-through
+J1,1,RJ45 shielded,Connector_RJ:RJ45_Amphenol_RJHSE5380-08,RJHSE-5380 (Amphenol ICC),RJHSE-5380-ND,"LCC bus - NOT Ethernet; NOT -5385 (LED variant); shell to CAN_GND"
+J2,1,RJ45 shielded,Connector_RJ:RJ45_Amphenol_RJHSE5380-08,RJHSE-5380 (Amphenol ICC),RJHSE-5380-ND,LCC bus daisy-chain pass-through
 J3,1,1x4 header 2.54mm,PinHeader_1x04,PRPC040SAAN-RC (Sullins),S1011EC-40-ND,MCU: 1=GND 2=3V3 3=TX 4=RX (snap from strip)
 D2,1,LED 0805,LED_SMD:LED_0805_2012Metric,LTST-C170KGKT (Lite-On) or equiv,160-1414-1-ND,"Rev C power indicator: +3V3 -> R4 -> D2 -> CAN_GND; GENERIC - any 0805 LED, colour to taste"
 D3,1,LED 0805,LED_SMD:LED_0805_2012Metric,LTST-C170KGKT (Lite-On) or equiv,160-1414-1-ND,"Rev C TX activity: +3V3 -> R5 -> D3 anode, cathode -> CAN_TX (blinks on transmit); ~1-2 mA"
