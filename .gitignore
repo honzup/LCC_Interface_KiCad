@@ -10,3 +10,9 @@ fp-info-cache
 *.kicad_prl
 # Editor local history
 .history/
+
+# Local reports and backups
+*-drc.rpt
+*.bak-*
+*.dsn
+*.ses
